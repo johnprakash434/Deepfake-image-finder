@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DeepFake Image Finder</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🧠 DeepFake Image Finder</h1>
+
+    <p class="subtitle">
+        Upload an image to check whether it is Real or DeepFake.
+    </p>
+
+    <form action="/predict"
+          method="POST"
+          enctype="multipart/form-data">
+
+        <div class="upload-box">
+
+            <input
+                type="file"
+                name="image"
+                accept=".jpg,.jpeg,.png"
+                required>
+
+        </div>
+
+        <br>
+
+        <button type="submit">
+
+            Detect Image
+
+        </button>
+
+    </form>
+
+    {% if image %}
+
+    <div class="preview">
+
+        <h2>Uploaded Image</h2>
+
+        <img src="{{ url_for('static', filename='../uploads/' + image) }}"
+             width="300">
+
+    </div>
+
+    {% endif %}
+
+    {% if prediction %}
+
+    <div class="result">
+
+        <h2>{{ prediction }}</h2>
+
+        <h3>Confidence : {{ confidence }}</h3>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>
